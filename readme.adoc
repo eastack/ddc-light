@@ -1,1 +1,7 @@
 = DDCUtil & GTK
+
+A util just for adjust brightness with DDC fro external monitor.
+
+== To Do
+
+* [ ] complete error handling

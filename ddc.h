@@ -12,9 +12,18 @@ set_nc_value(
         uint8_t new_value
 );
 
+DDCA_Non_Table_Vcp_Value
+get_nc_value(
+        DDCA_Display_Handle dh,
+        DDCA_Vcp_Feature_Code feature_code
+);
+
 void
-set_display_light(DDCA_Display_Handle dh,
-                  int light);
+set_display_brightness(DDCA_Display_Handle dh,
+                       int light);
+
+uint8_t
+get_display_brightness(DDCA_Display_Handle dh);
 
 DDCA_Display_Handle
 *open_display_by_dispno(int dispno);
