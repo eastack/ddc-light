@@ -3,16 +3,16 @@
 #include "ddc.h"
 
 static void
-scale_moved(GtkRange *range,
-            gpointer user_data) {
+scale_released(GtkRange *range,
+               GdkEventButton *event,
+               DDCA_Display_Handle *dh) {
     gdouble pos = gtk_range_get_value(range);
-    DDCA_Display_Handle *dh = user_data;
     set_display_brightness(dh, (int) pos);
 }
 
 static void
 activate(GtkApplication *app,
-         gpointer user_data) {
+         DDCA_Display_Handle *dh) {
     // window
     GtkWidget *window;
     window = gtk_application_window_new(app);
@@ -21,16 +21,14 @@ activate(GtkApplication *app,
 
     // scale
     GtkWidget *scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0, 100, 1);
-    int brightness = get_display_brightness(user_data);
+    int brightness = get_display_brightness(dh);
     gtk_range_set_value(GTK_RANGE(scale), brightness);
     gtk_widget_set_hexpand(scale, TRUE);
     gtk_widget_set_valign(scale, GTK_ALIGN_START);
-
-    // scale callback
     g_signal_connect (scale,
-                      "value-changed",
-                      G_CALLBACK(scale_moved),
-                      user_data);
+                     "button-release-event",
+                     G_CALLBACK(scale_released),
+                     dh);
 
     // grid
     GtkWidget *grid;
@@ -53,7 +51,7 @@ main(int argc,
     GtkApplication *app;
     int status;
     // ddcutil
-    DDCA_Display_Handle dh = open_display_by_dispno(1);
+    DDCA_Display_Handle *dh = open_display_by_dispno(1);
 
     app = gtk_application_new("me.eastack.ddc-light", G_APPLICATION_FLAGS_NONE);
     g_signal_connect (app, "activate", G_CALLBACK(activate), dh);

@@ -5,3 +5,4 @@ A util just for adjust brightness with DDC fro external monitor.
 == To Do
 
 * [ ] complete error handling
+* [x] make the adjust occur on the scale stop move

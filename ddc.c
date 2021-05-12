@@ -65,3 +65,10 @@ uint8_t
 get_display_brightness(DDCA_Display_Handle dh) {
     return get_nc_value(dh, 0x10).sl;
 }
+
+void
+get_display_info_list() {
+    DDCA_Display_Info_List *dlist = NULL;
+    ddca_get_display_info_list2(true, &dlist);
+    ddca_report_display_info_list(dlist, 1);
+}

@@ -28,4 +28,6 @@ get_display_brightness(DDCA_Display_Handle dh);
 DDCA_Display_Handle
 *open_display_by_dispno(int dispno);
 
+void get_display_info_list();
+
 #endif //DDC_LIGHT_DDC_H
